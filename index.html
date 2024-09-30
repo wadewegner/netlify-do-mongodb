@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        #movieList {
+            list-style-type: none;
+            padding: 0;
+        }
+        #movieList li {
+            background: #fff;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+        #loading, #error {
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie List</h1>
+    <div id="loading">Loading movies...</div>
+    <ul id="movieList"></ul>
+    <div id="error"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const movieList = document.getElementById('movieList');
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+
+            fetch('/.netlify/functions/get_movies')
+                .then(response => response.json())
+                .then(data => {
+                    loading.style.display = 'none';
+                    if (data.movies && data.movies.length > 0) {
+                        data.movies.forEach(movie => {
+                            const li = document.createElement('li');
+                            li.textContent = `${movie.title} (${movie.year})`;
+                            movieList.appendChild(li);
+                        });
+                    } else {
+                        error.textContent = 'No movies found.';
+                    }
+                })
+                .catch(err => {
+                    loading.style.display = 'none';
+                    error.textContent = 'Error fetching movies: ' + err.message;
+                });
+        });
+    </script>
+</body>
+</html>
