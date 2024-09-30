@@ -118,12 +118,6 @@ This is your `MONGODB_URL` that you'll use in your Netlify function.
 
 Note: Make sure you're in your project directory when running these Netlify CLI commands. Also, ensure you're logged in to your Netlify account in the CLI (you can log in using `netlify login` if needed).
 
-## Project Structure
-
-- `netlify/functions/get_movies/get_movies.js`: Netlify Function that connects to MongoDB and fetches movies
-- `index.html`: Displays the list of movies
-- `README.md`: This file
-
 ## Troubleshooting
 
 - Ensure your DigitalOcean MongoDB cluster is running and accessible
