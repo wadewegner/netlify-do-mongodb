@@ -64,8 +64,8 @@ This is your `MONGODB_URL` that you'll use in your Netlify function.
 
 1. Clone the repository:
    ```
-   git clone <your-repo-url>
-   cd netlify-mongodb-demo
+   git clone https://github.com/wadewegner/netlify-do-mongodb
+   cd netlify-do-mongodb
    ```
 
 2. Install dependencies:
@@ -83,19 +83,40 @@ This is your `MONGODB_URL` that you'll use in your Netlify function.
    netlify dev
    ```
 
-5. Open `http://localhost:8888` in your browser
+5. Open `http://localhost:8888` in your browser to view the main application.
+
+6. To test the Netlify function directly, open a new browser tab or use a tool like curl:
+   ```
+   curl http://localhost:8888/.netlify/functions/get_movies
+   ```
+   This will return the JSON response from your function, allowing you to verify that it's correctly fetching data from your MongoDB database.
 
 ## Deploying to Netlify
 
-1. Push your code to a GitHub repository
+1. Log into your Netlify account and enable the DigitalOcean extension:
+   - Go to the Netlify dashboard
+   - Navigate to "Extensions"
+   - Find and enable the DigitalOcean extension
 
-2. Log in to Netlify and create a new site from your GitHub repo
+2. In the DigitalOcean extension settings on Netlify:
+   - Add your MongoDB URL
+   - This will securely store your database connection string and make it available to your Netlify functions
 
-3. In your Netlify site settings, add an environment variable:
-   - Key: `MONGODB_URL`
-   - Value: Your MongoDB connection string from DigitalOcean
+3. Use the Netlify CLI to create a new site:
+   ```
+   netlify sites:create
+   ```
+   Follow the prompts to set up your new site.
 
-4. Deploy your site
+4. Deploy your site using the Netlify CLI:
+   ```
+   netlify deploy
+   ```
+   This command will build your site and deploy it to Netlify.
+
+5. After the deploy command completes, Netlify will provide you with a URL where you can view your live site.
+
+Note: Make sure you're in your project directory when running these Netlify CLI commands. Also, ensure you're logged in to your Netlify account in the CLI (you can log in using `netlify login` if needed).
 
 ## Project Structure
 
