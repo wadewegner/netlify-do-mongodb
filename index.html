@@ -6,14 +6,23 @@
     <title>Movie List</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
-            background-color: #f4f4f4;
         }
         h1 {
-            color: #333;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
         }
         #movieList {
             list-style-type: none;
@@ -21,22 +30,38 @@
         }
         #movieList li {
             background: #fff;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #movieList li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         #loading, #error {
+            text-align: center;
             font-style: italic;
-            color: #666;
+            color: #7f8c8d;
+        }
+        .movie-title {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .movie-year {
+            color: #7f8c8d;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-    <h1>Movie List</h1>
-    <div id="loading">Loading movies...</div>
-    <ul id="movieList"></ul>
-    <div id="error"></div>
+    <div class="container">
+        <h1>Movie List</h1>
+        <div id="loading">Loading movies...</div>
+        <ul id="movieList"></ul>
+        <div id="error"></div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -51,7 +76,7 @@
                     if (data.movies && data.movies.length > 0) {
                         data.movies.forEach(movie => {
                             const li = document.createElement('li');
-                            li.textContent = `${movie.title} (${movie.year})`;
+                            li.innerHTML = `<span class="movie-title">${movie.title}</span> <span class="movie-year">(${movie.year})</span>`;
                             movieList.appendChild(li);
                         });
                     } else {
